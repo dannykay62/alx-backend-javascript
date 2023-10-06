@@ -21,3 +21,25 @@ const teacher3: Teacher = {
   export interface Directors extends Teacher {
     numberOfReports: number;
   }
+
+  const director1: Directors = {
+    firstName: 'John',
+    lastName: 'Doe',
+    location: 'London',
+    fullTimeEmployee: true,
+    numberOfReports: 17,
+  };
+
+  // Task 3,printTeacher
+  export interface printTeacherFunction {
+    (firstName: string, lastName: string): string;
+  }
+
+// implement printTeacher that returns last letter of firstName and full lastName
+const printTeacher: printTeacherFunction = (
+    firstName: string,
+    lastName: string
+): string => {
+    return `${firstName[0]}. ${lastName}';
+};
+
