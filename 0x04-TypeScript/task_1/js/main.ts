@@ -30,7 +30,7 @@ const teacher3: Teacher = {
     numberOfReports: 17,
   };
 
-  // Task 3,printTeacher
+  // Task 3: printTeacherFunction
   export interface printTeacherFunction {
     (firstName: string, lastName: string): string;
   }
@@ -40,6 +40,34 @@ const printTeacher: printTeacherFunction = (
     firstName: string,
     lastName: string
 ): string => {
-    return `${firstName[0]}. ${lastName}';
+    return `${firstName[0]}. ${lastName}`;
 };
 
+// 4: Writing a class
+export const StudentClass: StudentConstructor = class StudentClass implements StudentClassInterface {
+    firstName: string;
+    lastName: string;
+    constructor(firstName: string, lastName: string) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    workOnHomework() {
+        return 'Currently working';
+    }
+
+    displayName() {
+        return this.firstName;
+    }
+}
+
+export interface StudentClassInterface {
+    readonly firstName: string;
+    readonly lastName: string;
+    workOnHomework(): string;
+    displayName(): string;
+}
+
+export interface StudentConstructor {
+    new(firstName: string, lastName: string): StudentClassInterface;
+}
