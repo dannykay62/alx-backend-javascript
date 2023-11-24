@@ -1,8 +1,9 @@
 'use strict';
-const Utils = require('./utils.js');
-
-function sendPaymentRequestToApi(totalAmount, totalShipping) {
-  const res = Utils.calculateNumber('SUM', totalAmount, totalShipping);
-  console.log(`The total is: ${res}`);
-};
-module.exports = sendPaymentRequestToApi;
+const Utils = {
+  calculateNumber(type, a, b) {
+    if (type === 'SUM') return Math.round(a) + Math.round(b);
+    if (type === 'SUBTRACT') return Math.round(a) - Math.round(b);
+    if (type === 'DIVIDE') return Math.round(b) === 0 ? 'Error' : Math.round(a) / Math.round(b);
+  }
+}
+module.exports = Utils;
