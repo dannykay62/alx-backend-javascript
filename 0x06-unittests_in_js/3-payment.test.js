@@ -1,6 +1,7 @@
 'use strict';
 const chai = require('chai');
 const sinon = require('sinon');
+
 const Utils = require('./utils.js');
 const sendPaymentRequestToApi = require('./3-payment.js');
 
