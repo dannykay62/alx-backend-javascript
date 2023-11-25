@@ -1,20 +1,38 @@
-const http = require('http');
-const countStudents = require('./3-read_file_async');
+const express = require('express');
+const fs = require('fs');
 
-const app = http.createServer(async (req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  if (req.url === '/') res.write('Hello Holberton School!');
-  if (req.url === '/students') {
-    res.write('This is the list of our students\n');
-    try {
-      const data = await countStudents(process.argv[2]);
-      res.end(`${data.join('\n')}`);
-    } catch (error) {
-      res.end(error.message);
-    }
-  }
-  res.end();
+const port = 1245;
+const app = express();
+
+app.get('/', (req, res) => {
+  res.send('Hello Holberton School!');
 });
-app.listen(1245);
+
+app.get('/students', (req, res) => {
+  const databasePath = req.app.get('databasePath');
+
+  fs.readFile(databasePath, 'utf8', (err, data) => {
+    if (err) {
+      res.status(500).send(`Error reading database: ${err.message}`);
+    } else {
+      const lines = data.split('\n').filter(line => line.trim() !== '');
+      const studentsList = lines.map(line => line.split(',')[0]);
+      res.send(`This is the list of our students:\n${studentsList.join('\n')}`);
+    }
+  });
+});
+
+const databaseName = process.argv[2];
+
+if (!databaseName) {
+  console.error('Please provide a database file name.');
+  process.exit(1);
+}
+
+app.set('databasePath', databaseName);
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
+
 module.exports = app;
