@@ -13,8 +13,8 @@ app.get('/students', (req, res) => {
     if (err) {
       res.status(500).send(`Error reading database: ${err.message}`);
     } else {
-      const lines = data.split('\n').filter(line => line.trim() !== '');
-      const studentsList = lines.map(line => line.split(','[0]));
+      const lines = data.split('\n').filter((line) => line.trim() !== '');
+      const studentsList = lines.map((line) => line.split(','[0]));
       res.send(`This is the list of our students:\n${studentsList.join('\n')}`);
     }
   });
